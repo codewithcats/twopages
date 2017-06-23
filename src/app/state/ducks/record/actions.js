@@ -14,7 +14,12 @@ const recordsChange = (records) => ({
   }
 })
 
+const fetchRecords = () => ({
+  type: types.FETCH_RECORDS
+})
+
 export default {
   readCommit,
-  recordsChange
+  recordsChange,
+  fetchRecords
 }

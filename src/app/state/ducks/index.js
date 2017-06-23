@@ -8,7 +8,8 @@ const reducers = Object.assign(
 )
 
 const sagas = [].concat(
-  record.sagas
+  record.sagas,
+  routing.sagas
 )
 
 export default {
