@@ -1,0 +1,28 @@
+$primary: #2196F3;
+
+$fa-font-path: "font-awesome/fonts";
+@import "font-awesome/scss/font-awesome.scss";
+@import "./node_modules/bulma/bulma.sass";
+
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  //font-family: 'Abel', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+}
+
+button, input {
+  font-family: 'Poppins', sans-serif;
+}
+// Hacking react datepicker style
+.react-datepicker__input-container {
+  display: block !important;
+}
