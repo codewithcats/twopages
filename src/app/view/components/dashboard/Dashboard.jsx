@@ -7,7 +7,13 @@ import {
 } from 'recompose'
 import moment from 'moment'
 import styled from 'styled-components'
-import {actions as recordActions} from '../../../state/ducks/record'
+import R from 'ramda'
+
+import {
+  actions as recordActions,
+  lens as recordLens
+} from '../../../state/ducks/record'
+
 import Progress from './Progress'
 
 const Container = styled.div`
@@ -31,14 +37,14 @@ const ProgressContainer = styled.div`
 `
 
 const Dashboard = (props) => {
-  const {todayStr, onReadCommit} = props
+  const {todayStr, onReadCommit, isCommitted} = props
   return (
     <Container>
       <TodayTitle className="title is-4">
         <i className="fa fa-bookmark-o"></i> {todayStr}
       </TodayTitle>
       <ReadButton className="button is-large is-primary"
-        onClick={onReadCommit}>
+        onClick={onReadCommit} disabled={isCommitted}>
         I Read At Least 2 Pages Today!
       </ReadButton>
       <ProgressContainer>
@@ -49,10 +55,15 @@ const Dashboard = (props) => {
 }
 
 const Dashboard_composed = compose(
-  withProps(() => ({
-    date: moment(),
-    todayStr: moment().format('Do MMMM YYYY')
-  })),
+  withProps(({readRecords = {}}) => {
+    const today = moment()
+    const todayKey = today.format('YYYY-MM-DD')
+    return {
+      date: today,
+      todayStr: today.format('Do MMMM YYYY'),
+      isCommitted: !!readRecords[todayKey]
+    }
+  }),
   withHandlers({
     onReadCommit: ({date, readCommit}) => (event) => {
       readCommit(date)
@@ -60,7 +71,14 @@ const Dashboard_composed = compose(
   })
 )(Dashboard)
 
-const Dashboard_connected = connect(null, {
+function stateToProps(state) {
+  const records = R.view(recordLens.recordsLens, state.record)
+  return {
+    readRecords: records
+  }
+}
+
+const Dashboard_connected = connect(stateToProps, {
   readCommit: recordActions.readCommit
 })(Dashboard_composed)
 
