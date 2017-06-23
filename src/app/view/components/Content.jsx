@@ -12,7 +12,7 @@ const Container = styled.section`
 `
 
 const Content = (props) => {
-  const {stateName, view} = props
+  const {view} = props
   return (
     <Container>
       {view}

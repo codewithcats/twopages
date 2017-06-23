@@ -10,3 +10,8 @@ export async function saveRecordToLocal(record) {
     return localforage.setItem('records', newRecords)
   })
 }
+
+export async function fetchRecordsFromLocal() {
+  const records = await localforage.getItem('records')
+  return records
+}

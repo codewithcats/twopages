@@ -1,7 +1,10 @@
-import {take, call, put} from 'redux-saga/effects'
+import {take, takeLatest, call, put} from 'redux-saga/effects'
 import types from './types'
 import actions from './actions'
-import {saveRecordToLocal} from '../../../api/record'
+import {
+  saveRecordToLocal,
+  fetchRecordsFromLocal
+} from '../../../api/record'
 
 function* saveRecord() {
   while (true) {
@@ -16,6 +19,16 @@ function* saveRecord() {
   }
 }
 
+function* fetchRecords(action) {
+  const records = yield call(fetchRecordsFromLocal)
+  yield put(actions.recordsChange(records))
+}
+
+function* watchFetchRecords() {
+  yield takeLatest(types.FETCH_RECORDS, fetchRecords)
+}
+
 export default [
-  saveRecord
+  saveRecord,
+  watchFetchRecords
 ]
