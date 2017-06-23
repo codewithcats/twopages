@@ -8,6 +8,17 @@ import router from './app/router'
 import reduxStore from './app/state/store'
 import {Provider as ReduxProvider} from 'react-redux'
 
+if (process.env.NODE_ENV !== 'production') {
+  let createClass = React.createClass
+  Object.defineProperty(React, 'createClass', {
+    set: (nextCreateClass) => {
+      createClass = nextCreateClass
+    }
+  })
+  const {whyDidYouUpdate} = require('why-did-you-update')
+  whyDidYouUpdate(React)
+}
+
 async function render(component, element) {
   return new Promise((resolve) => {
     ReactDOM.render(component, element, (...args) => {

@@ -14,11 +14,12 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.4",
     "router5": "^4.7.1",
-    "styled-components": "^2.1.0"
+    "styled-components": "^2.1.0",
+    "why-did-you-update": "^0.0.8"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7",
-    "node-sass": "^4.5.3"
+    "node-sass": "^4.5.3",
+    "react-scripts": "1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
