@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.4.2",
+    "moment": "^2.18.1",
     "polished": "^1.2.1",
     "ramda": "^0.24.1",
     "react": "^15.6.1",

@@ -20,8 +20,6 @@ const Content = (props) => {
   )
 }
 
-
-
 function stateToProps(state) {
   const stateName = R.view(routingLens.currentStateNameLens, state.routing)
   switch (stateName) {
