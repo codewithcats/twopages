@@ -7,6 +7,14 @@ const readCommit = (date) => ({
   }
 })
 
+const recordsChange = (records) => ({
+  type: types.RECORDS_CHANGE,
+  payload: {
+    records
+  }
+})
+
 export default {
-  readCommit
+  readCommit,
+  recordsChange
 }

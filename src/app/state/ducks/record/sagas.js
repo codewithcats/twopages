@@ -1,5 +1,6 @@
-import {take, call} from 'redux-saga/effects'
+import {take, call, put} from 'redux-saga/effects'
 import types from './types'
+import actions from './actions'
 import {saveRecordToLocal} from '../../../api/record'
 
 function* saveRecord() {
@@ -11,7 +12,7 @@ function* saveRecord() {
       read: true
     }
     const records = yield call(saveRecordToLocal, record)
-    console.debug('New Records', records)
+    yield put(actions.recordsChange(records))
   }
 }
 

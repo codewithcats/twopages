@@ -3,7 +3,8 @@ import record from './record'
 
 const reducers = Object.assign(
   {},
-  routing.reducer
+  routing.reducer,
+  record.reducer
 )
 
 const sagas = [].concat(
