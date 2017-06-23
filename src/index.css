@@ -6634,7 +6634,7 @@ label.panel-block {
 
 html, body {
   height: 100%;
-  font-family: 'Poppins', sans-serif; }
+  font-family: 'Abel', sans-serif; }
 
 body {
   display: flex;
@@ -6643,6 +6643,9 @@ body {
 #root {
   flex: 1;
   display: flex; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif; }
 
 button, input {
   font-family: 'Poppins', sans-serif; }

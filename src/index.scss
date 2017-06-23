@@ -6,7 +6,7 @@ $fa-font-path: "font-awesome/fonts";
 
 html, body {
   height: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Abel', sans-serif;
   //font-family: 'Abel', sans-serif;
 }
 
@@ -18,6 +18,10 @@ body {
 #root {
   flex: 1;
   display: flex;
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: 'Poppins', sans-serif;
 }
 
 button, input {
