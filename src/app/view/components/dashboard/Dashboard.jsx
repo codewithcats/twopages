@@ -15,21 +15,13 @@ import {
 } from '../../../state/ducks/record'
 
 import Progress from './Progress'
+import TodayPanel from './TodayPanel'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: stretch;
-`
-
-const TodayTitle = styled.h4`
-  margin-bottom: 0.5rem !important;
-`
-
-const ReadButton = styled.button`
-  font-size: 1.2rem !important;
-  display: block;
 `
 
 const ProgressContainer = styled.div`
@@ -40,13 +32,9 @@ const Dashboard = (props) => {
   const {todayStr, onReadCommit, isCommitted} = props
   return (
     <Container>
-      <TodayTitle className="title is-4">
-        <i className="fa fa-bookmark-o"></i> {todayStr}
-      </TodayTitle>
-      <ReadButton className="button is-large is-primary"
-        onClick={onReadCommit} disabled={isCommitted}>
-        I Read At Least 2 Pages Today!
-      </ReadButton>
+      <TodayPanel todayStr={todayStr}
+        onReadCommit={onReadCommit}
+        isCommitted={isCommitted} />
       <ProgressContainer>
         <Progress />
       </ProgressContainer>
