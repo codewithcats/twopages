@@ -4,6 +4,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import {Header} from './app/view/components'
+import router from './app/router'
 
 async function render(component, element) {
   return new Promise((resolve) => {
@@ -19,6 +20,7 @@ async function init() {
   ), document.getElementById('header'))
 
   registerServiceWorker();
+  router.start()
 }
 
 init()
