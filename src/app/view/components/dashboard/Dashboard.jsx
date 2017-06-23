@@ -8,12 +8,13 @@ import {
 import moment from 'moment'
 import styled from 'styled-components'
 import {actions as recordActions} from '../../../state/ducks/record'
+import Progress from './Progress'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  align-items: stretch;
 `
 
 const TodayTitle = styled.h4`
@@ -23,6 +24,10 @@ const TodayTitle = styled.h4`
 const ReadButton = styled.button`
   font-size: 1.2rem !important;
   display: block;
+`
+
+const ProgressContainer = styled.div`
+  margin-top: 2rem
 `
 
 const Dashboard = (props) => {
@@ -36,6 +41,9 @@ const Dashboard = (props) => {
         onClick={onReadCommit}>
         I Read At Least 2 Pages Today!
       </ReadButton>
+      <ProgressContainer>
+        <Progress />
+      </ProgressContainer>
     </Container>
   )
 }
