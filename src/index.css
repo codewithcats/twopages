@@ -6641,7 +6641,8 @@ body {
   flex-direction: column; }
 
 #root {
-  flex: 1; }
+  flex: 1;
+  display: flex; }
 
 button, input {
   font-family: 'Poppins', sans-serif; }
