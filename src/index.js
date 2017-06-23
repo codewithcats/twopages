@@ -5,6 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import {Header} from './app/view/components'
 import router from './app/router'
+import reduxStore from './app/state/store'
+import {Provider as ReduxProvider} from 'react-redux'
 
 async function render(component, element) {
   return new Promise((resolve) => {
@@ -16,7 +18,9 @@ async function render(component, element) {
 
 async function init() {
   await render((
-    <Header />
+    <ReduxProvider store={reduxStore}>
+      <Header />
+    </ReduxProvider>
   ), document.getElementById('header'))
 
   registerServiceWorker();

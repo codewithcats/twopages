@@ -12,6 +12,7 @@
     "react-redux": "^5.0.5",
     "recompose": "^0.23.5",
     "redux": "^3.7.0",
+    "redux-logger": "^3.0.6",
     "router5": "^4.7.1",
     "styled-components": "^2.1.0"
   },
