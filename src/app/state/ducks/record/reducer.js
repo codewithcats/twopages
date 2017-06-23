@@ -5,7 +5,14 @@ import lens from './lens'
 
 const recordsChangeReducer = (state, action) => {
   const {records} = action.payload
-  return R.set(lens.recordsLens, records, state)
+  const recordOrder = R.pipe(
+    R.keys,
+    R.sort((a, b) => a < b)
+  )(records)
+  return R.pipe(
+    R.set(lens.recordsLens, records),
+    R.set(lens.recordOrderLens, recordOrder)
+  )(state)
 }
 
 const reducer = (state = {}, action) => {
