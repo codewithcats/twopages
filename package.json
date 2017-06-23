@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.4.2",
-    "node-sass": "^4.5.3",
     "polished": "^1.2.1",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
@@ -13,11 +12,13 @@
     "recompose": "^0.23.5",
     "redux": "^3.7.0",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^0.15.4",
     "router5": "^4.7.1",
     "styled-components": "^2.1.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "node-sass": "^4.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
