@@ -30,7 +30,7 @@ async function init() {
   ), document.getElementById('root'))
 
   registerServiceWorker();
-  router.start()
+  router.start('/dashboard')
 }
 
 init()

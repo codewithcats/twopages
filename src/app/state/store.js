@@ -1,16 +1,19 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import {createLogger} from 'redux-logger'
 import router from '../router'
+import ducks from './ducks'
 import {actions as routingActions} from './ducks/routing'
 
 function configStore(initialState) {
+  const reducers = combineReducers(ducks.reducers)
+
   const middlewares = []
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(createLogger())
   }
 
   const store = createStore(
-    s => s,
+    reducers,
     initialState,
     applyMiddleware(...middlewares)
   )
