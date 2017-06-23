@@ -1,10 +1,13 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {
   compose,
-  withProps
+  withProps,
+  withHandlers
 } from 'recompose'
 import moment from 'moment'
 import styled from 'styled-components'
+import {actions as recordActions} from '../../../state/ducks/record'
 
 const Container = styled.div`
   display: flex;
@@ -23,13 +26,14 @@ const ReadButton = styled.button`
 `
 
 const Dashboard = (props) => {
-  const {todayStr} = props
+  const {todayStr, onReadCommit} = props
   return (
     <Container>
       <TodayTitle className="title is-4">
         <i className="fa fa-bookmark-o"></i> {todayStr}
       </TodayTitle>
-      <ReadButton className="button is-large is-primary">
+      <ReadButton className="button is-large is-primary"
+        onClick={onReadCommit}>
         I Read At Least 2 Pages Today!
       </ReadButton>
     </Container>
@@ -38,8 +42,18 @@ const Dashboard = (props) => {
 
 const Dashboard_composed = compose(
   withProps(() => ({
+    date: moment(),
     todayStr: moment().format('Do MMMM YYYY')
-  }))
+  })),
+  withHandlers({
+    onReadCommit: ({date, readCommit}) => (event) => {
+      readCommit(date)
+    }
+  })
 )(Dashboard)
 
-export default Dashboard_composed
+const Dashboard_connected = connect(null, {
+  readCommit: recordActions.readCommit
+})(Dashboard_composed)
+
+export default Dashboard_connected
