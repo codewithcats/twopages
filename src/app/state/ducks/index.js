@@ -5,7 +5,8 @@ import session from './session'
 const reducers = Object.assign(
   {},
   routing.reducer,
-  record.reducer
+  record.reducer,
+  session.reducer
 )
 
 const sagas = [].concat(
