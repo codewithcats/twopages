@@ -14,7 +14,16 @@ const register = (email, password) => ({
   }
 })
 
+const registerError = (error) => ({
+  type: types.REGISTER_ERROR,
+  error: true,
+  payload: {
+    error
+  }
+})
+
 export default {
   authStateChange,
-  register
+  register,
+  registerError
 }

@@ -1,7 +1,9 @@
 const AUTH_STATE_CHANGE = 'session/AUTH_STATE_CHANGE'
 const REGISTER = 'session/REGISTER'
+const REGISTER_ERROR = 'session/REGISTER_ERROR'
 
 export default {
   AUTH_STATE_CHANGE,
-  REGISTER
+  REGISTER,
+  REGISTER_ERROR
 }

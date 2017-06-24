@@ -1,6 +1,7 @@
-import {call, all, take, takeLatest} from 'redux-saga/effects'
+import {call, all, take, takeLatest, put} from 'redux-saga/effects'
 
 import types from './types'
+import actions from './actions'
 import {types as routingTypes} from '../routing'
 import router from '../../../router'
 import sessionApi from '../../../api/session'
@@ -15,7 +16,11 @@ function* authStateChange() {
 
 function* register(action) {
   const {email, password} = action.payload
-  yield call(sessionApi.register, email, password)
+  try {
+    yield call(sessionApi.register, email, password)
+  } catch (error) {
+    yield put(actions.registerError(error))
+  }
 }
 
 function* watchRegister() {
