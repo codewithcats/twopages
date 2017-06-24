@@ -2,6 +2,7 @@ import React from 'react'
 import {
   compose,
   withProps,
+  withHandlers,
   shouldUpdate
 } from 'recompose'
 import moment from 'moment'
@@ -11,6 +12,7 @@ import {green, purple} from '../../base/colors'
 
 const Container = styled.div`
   display: flex;
+  cursor: pointer;
 `
 
 const Check = styled.span`
@@ -29,9 +31,10 @@ const Pages = styled.span`
 `
 
 const ProgressItem = (props) => {
-  const {dateText, books} = props
+  const {dateText, books,
+    onItemClick} = props
   return (
-    <Container>
+    <Container onClick={onItemClick}>
       <Check>
         <i className="fa fa-check-circle-o"></i>
       </Check>
@@ -58,6 +61,11 @@ const ProgressItem_composed = compose(
     return {
       dateText: moment(record.date, 'YYYY-MM-DD').format('Do MMMM YYYY'),
       books: record.books || []
+    }
+  }),
+  withHandlers({
+    onItemClick: ({editRecord, record}) => event => {
+      editRecord(record)
     }
   })
 )(ProgressItem)

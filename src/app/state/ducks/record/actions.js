@@ -42,6 +42,13 @@ const addBookToRecordDone = () => ({
   type: types.ADD_BOOK_TO_RECORD_DONE
 })
 
+const toEditRecord = (record) => ({
+  type: types.TO_EDIT_RECORD,
+  payload: {
+    record
+  }
+})
+
 export default {
   readCommit,
   recordsChange,
@@ -49,5 +56,6 @@ export default {
   updateRecord,
   addBookToRecord,
   addBookToRecordPending,
-  addBookToRecordDone
+  addBookToRecordDone,
+  toEditRecord
 }

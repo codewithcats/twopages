@@ -9,7 +9,10 @@ const createRoute = (name, path, children) => ({
 const routes = [
   createRoute('dashboard', '/dashboard'),
   createRoute('profile', '/profile'),
-  createRoute('lounge', '/lounge')
+  createRoute('lounge', '/lounge'),
+  createRoute('record', '/record/:record', [
+    createRoute('edit', '/edit')
+  ])
 ]
 
 const options = {

@@ -11,6 +11,7 @@ import {
   updateBooks
 } from '../../../api/record'
 import {lens as sessionLens} from '../session'
+import router from '../../../router'
 
 function* saveRecord() {
   while (true) {
@@ -79,8 +80,17 @@ function* addBookToRecord() {
   }
 }
 
+function* toEditRecord() {
+  while (true) {
+    const action = yield take(types.TO_EDIT_RECORD)
+    const {record} = action.payload
+    yield call(router.navigate, 'record.edit', {record: record.date})
+  }
+}
+
 export default [
   saveRecord,
   watchFetchRecords,
-  addBookToRecord
+  addBookToRecord,
+  toEditRecord
 ]
