@@ -1,8 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import {rgba} from 'polished'
+import {connect} from 'react-redux'
+import {
+  compose,
+  withHandlers
+} from 'recompose'
 
 import {purple} from '../base/colors'
+import {actions as routingActions} from '../../state/ducks/routing'
 
 const Container = styled.nav`
   position: fixed;
@@ -25,7 +31,8 @@ const Icon = styled.span`
   margin-bottom: 0.5rem;
 `
 
-const BottomBar = () => {
+const BottomBar = (props) => {
+  const {profile} = props
   return (
     <Container className="nav">
       <NavItem className="nav-item">
@@ -40,7 +47,8 @@ const BottomBar = () => {
         </Icon>
         <span>Library</span>
       </NavItem>
-      <NavItem className="nav-item">
+      <NavItem className="nav-item"
+        onClick={profile}>
         <Icon className="icon">
           <i className="fa fa-user-circle"></i>
         </Icon>
@@ -50,4 +58,16 @@ const BottomBar = () => {
   )
 }
 
-export default BottomBar
+const BottomBar_composed = compose(
+  withHandlers({
+    profile: ({navigate}) => () => {
+      navigate('profile')
+    }
+  })
+)(BottomBar)
+
+const BottomBar_connected = connect(null, {
+  navigate: routingActions.navigate
+})(BottomBar_composed)
+
+export default BottomBar_connected

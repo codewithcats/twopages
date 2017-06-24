@@ -1,5 +1,6 @@
-import {take, put} from 'redux-saga/effects'
+import {take, put, takeLatest, call} from 'redux-saga/effects'
 
+import router from '../../../router'
 import types from './types'
 import {actions as recordActions} from '../record'
 
@@ -13,6 +14,16 @@ function* enterDashboard() {
   }
 }
 
+export function* navigate(action) {
+  const {to, params, options} = action.payload
+  yield call(router.navigate, to, params, options)
+}
+
+export function* watchNavigate() {
+  yield takeLatest(types.NAVIGATE, navigate)
+}
+
 export default [
-  enterDashboard
+  enterDashboard,
+  watchNavigate
 ]

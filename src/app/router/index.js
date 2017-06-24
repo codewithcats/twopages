@@ -7,7 +7,8 @@ const createRoute = (name, path, children) => ({
 })
 
 const routes = [
-  createRoute('dashboard', '/dashboard')
+  createRoute('dashboard', '/dashboard'),
+  createRoute('profile', '/profile')
 ]
 
 const options = {

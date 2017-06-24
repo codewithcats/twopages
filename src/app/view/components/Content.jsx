@@ -2,8 +2,11 @@ import React from 'react'
 import R from 'ramda'
 import {connect} from 'react-redux'
 import styled from 'styled-components'
-import Dashboard from './dashboard'
+
 import {lens as routingLens} from '../../state/ducks/routing'
+
+import Profile from './profile'
+import Dashboard from './dashboard'
 
 const Container = styled.section`
   flex: 1;
@@ -25,6 +28,8 @@ function stateToProps(state) {
   switch (stateName) {
     case 'dashboard':
       return {state: stateName, view: <Dashboard />}
+    case 'profile':
+      return {state: stateName, view: <Profile />}
     default:
       return {state: stateName}
   }
