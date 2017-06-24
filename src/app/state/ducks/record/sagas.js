@@ -1,12 +1,14 @@
 import R from 'ramda'
-import {take, takeLatest, call, put} from 'redux-saga/effects'
+import {take, takeLatest, call, put, select} from 'redux-saga/effects'
 import types from './types'
 import actions from './actions'
 import {
   saveRecordToLocal,
   fetchRecordsFromLocal,
-  saveBookToLocal
+  saveBookToLocal,
+  fetchRecords as fetchRecordsFromRemote
 } from '../../../api/record'
+import {lens as sessionLens} from '../session'
 
 function* saveRecord() {
   while (true) {
@@ -22,8 +24,15 @@ function* saveRecord() {
 }
 
 function* fetchRecords(action) {
-  const records = yield call(fetchRecordsFromLocal)
-  yield put(actions.recordsChange(records))
+  const user = yield select(state => R.view(sessionLens.userLens, state.session))
+  if (user) {
+    const remoteRecords = yield call(fetchRecordsFromRemote, user)
+    console.debug('fetchRecords', remoteRecords)
+    yield put(actions.recordsChange(remoteRecords))
+  } else {
+    const records = yield call(fetchRecordsFromLocal)
+    yield put(actions.recordsChange(records))
+  }
 }
 
 function* watchFetchRecords() {

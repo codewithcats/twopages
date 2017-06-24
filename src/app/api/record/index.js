@@ -38,27 +38,26 @@ export async function updateBooks(books) {
   })
 }
 
-export async function pushRecord(user, record) {
+export async function updateRecords(user, records) {
   const recordsRef = database().ref(`user-records/${user.uid}`)
-  const key = recordsRef.push().key
-  const updates = {
-    [key]: record
-  }
   return new Promise((resolve, reject) => {
-    recordsRef.update(updates, error => {
-      error? reject(error): resolve(record)
+    recordsRef.update(records, error => {
+      error? reject(error): resolve(records)
     })
   })
 }
 
 export async function oneTimeSync(user, books, records) {
-  console.debug('oneTimeSync', user, books, records)
   return updateBooks(books)
   .then(() => {
-    const promises = R.pipe(
-      R.values,
-      R.map(record => pushRecord(user, record))
-    )(records)
-    return Promise.all(promises)
+    return updateRecords(user, records)
+  })
+}
+
+export async function fetchRecords(user) {
+  const recordsRef = database().ref(`user-records/${user.uid}`)
+  return recordsRef.once('value')
+  .then(snapshot => {
+    return snapshot.val()
   })
 }
