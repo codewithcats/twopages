@@ -4,9 +4,11 @@ import {connect} from 'react-redux'
 import styled from 'styled-components'
 
 import {lens as routingLens} from '../../state/ducks/routing'
+import {lens as recordLens} from '../../state/ducks/record'
 
 import Profile from './profile'
 import Dashboard from './dashboard'
+import EditRecordForm from './editRecord'
 import BottomBar from './BottomBar'
 
 const Container = styled.section`
@@ -34,6 +36,11 @@ function stateToProps(state) {
       return {state: stateName, view: <Dashboard />}
     case 'profile':
       return {state: stateName, view: <Profile />}
+    case 'record.edit':
+      const {params: {record: recordDate}} = R.view(routingLens.currentStateLens, state.routing)
+      const records = R.view(recordLens.recordsLens, state.record)
+      const targetRecord = records[recordDate]
+      return {state: stateName, view: <EditRecordForm record={targetRecord} />}
     default:
       return {state: stateName}
   }
