@@ -33,10 +33,11 @@ const Icon = styled.span`
 `
 
 const BottomBar = (props) => {
-  const {profile} = props
+  const {profile, dashboard} = props
   return (
     <Container className="nav">
-      <NavItem className="nav-item">
+      <NavItem className="nav-item"
+        onClick={dashboard}>
         <Icon className="icon">
           <i className="fa fa-home"></i>
         </Icon>
@@ -63,7 +64,10 @@ const BottomBar_composed = compose(
   withHandlers({
     profile: ({navigate}) => () => {
       navigate('profile')
-    }
+    },
+    dashboard: ({navigate}) => () => {
+      navigate('dashboard')
+    },
   })
 )(BottomBar)
 
