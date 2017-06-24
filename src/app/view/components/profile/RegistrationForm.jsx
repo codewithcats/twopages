@@ -41,7 +41,7 @@ const UnlockIcon = styled.i`
 
 const RegistrationForm = (props) => {
   const {isFormValid, email, password, registerError,
-    onEmailChange, onPasswordChange, onSubmit, onCloseRegErrorClick} = props
+    onEmailChange, onPasswordChange, onSubmit, onCloseRegErrorClick, onSignInClick} = props
   return (
     <form onSubmit={onSubmit}>
       <div className="field">
@@ -63,7 +63,8 @@ const RegistrationForm = (props) => {
           Register
         </button>
         <Or className="title is-4">or</Or> 
-        <button className="button is-medium is-primary" disabled={!isFormValid}>
+        <button className="button is-medium is-primary" disabled={!isFormValid}
+          onClick={onSignInClick}>
           Sign In
         </button>
       </ActionContainer>
@@ -101,6 +102,10 @@ const RegistrationForm_composed = compose(
     },
     onCloseRegErrorClick: ({clearRegistrationError}) => (event) => {
       clearRegistrationError()
+    },
+    onSignInClick: ({email, password, signIn}) => event => {
+      event.preventDefault()
+      signIn(email, password)
     }
   })
 )(RegistrationForm)
@@ -114,7 +119,8 @@ function stateToProps(state) {
 
 const RegistrationForm_connected = connect(stateToProps, {
   register: sessionActions.register,
-  clearRegistrationError: sessionActions.clearRegistrationError
+  clearRegistrationError: sessionActions.clearRegistrationError,
+  signIn: sessionActions.signIn
 })(RegistrationForm_composed)
 
 export default RegistrationForm_connected

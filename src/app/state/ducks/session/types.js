@@ -3,11 +3,13 @@ const REGISTER = 'session/REGISTER'
 const REGISTER_ERROR = 'session/REGISTER_ERROR'
 const CLEAR_REGISTER_ERROR = 'session/CLEAR_REGISTER_ERROR'
 const SIGN_OUT = 'session/SIGN_OUT'
+const SIGN_IN = 'session/SIGN_IN'
 
 export default {
   AUTH_STATE_CHANGE,
   REGISTER,
   REGISTER_ERROR,
   CLEAR_REGISTER_ERROR,
-  SIGN_OUT
+  SIGN_OUT,
+  SIGN_IN
 }

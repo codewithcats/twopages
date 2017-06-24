@@ -30,10 +30,18 @@ const signOut = () => ({
   type: types.SIGN_OUT
 })
 
+const signIn = (email, password) => ({
+  type: types.SIGN_IN,
+  payload: {
+    email, password
+  }
+})
+
 export default {
   authStateChange,
   register,
   registerError,
   clearRegistrationError,
-  signOut
+  signOut,
+  signIn
 }
