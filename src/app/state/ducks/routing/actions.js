@@ -21,9 +21,14 @@ const navigate = (to, params, options) => ({
   }
 })
 
+const started = () => ({
+  type: types.ROUTER_STARTED
+})
+
 export default {
   nodeChange,
   routeChange,
-  navigate
+  navigate,
+  started
 }
 
