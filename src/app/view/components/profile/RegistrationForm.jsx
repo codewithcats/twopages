@@ -40,8 +40,8 @@ const UnlockIcon = styled.i`
 `
 
 const RegistrationForm = (props) => {
-  const {isFormValid, email, password, registerError,
-    onEmailChange, onPasswordChange, onSubmit, onCloseRegErrorClick, onSignInClick} = props
+  const {isFormValid, email, password, registerError, signInError,
+    onEmailChange, onPasswordChange, onSubmit, onCloseRegErrorClick, onSignInClick, onCloseSignInErrorClick} = props
   return (
     <form onSubmit={onSubmit}>
       <div className="field">
@@ -79,6 +79,13 @@ const RegistrationForm = (props) => {
           Already registered? Please use sign in button instead ;-)
         </div>
       )}
+      {signInError && (
+        <div className="notification is-warning">
+          <button className="delete" onClick={onCloseSignInErrorClick}></button>
+          Sign in failed. Please check your email and password.
+          Not have an account yet? Please use register button instead ;-)
+        </div>
+      )}
     </form>
   )
 }
@@ -103,6 +110,9 @@ const RegistrationForm_composed = compose(
     onCloseRegErrorClick: ({clearRegistrationError}) => (event) => {
       clearRegistrationError()
     },
+    onCloseSignInErrorClick: ({clearSignInError}) => (event) => {
+      clearSignInError()
+    },
     onSignInClick: ({email, password, signIn}) => event => {
       event.preventDefault()
       signIn(email, password)
@@ -112,15 +122,18 @@ const RegistrationForm_composed = compose(
 
 function stateToProps(state) {
   const registerError = R.view(sessionLens.registerErrorLens, state.session)
+  const signInError = R.view(sessionLens.signInErrorLens, state.session)
   return {
-    registerError
+    registerError,
+    signInError
   }
 }
 
 const RegistrationForm_connected = connect(stateToProps, {
   register: sessionActions.register,
   clearRegistrationError: sessionActions.clearRegistrationError,
-  signIn: sessionActions.signIn
+  signIn: sessionActions.signIn,
+  clearSignInError: sessionActions.clearSignInError
 })(RegistrationForm_composed)
 
 export default RegistrationForm_connected

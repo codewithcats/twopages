@@ -37,11 +37,25 @@ const signIn = (email, password) => ({
   }
 })
 
+const signInError = (error) => ({
+  type: types.SIGN_IN_ERROR,
+  error: true,
+  payload: {
+    error
+  }
+})
+
+const clearSignInError = () => ({
+  type: types.CLEAR_SIGN_IN_ERROR
+})
+
 export default {
   authStateChange,
   register,
   registerError,
   clearRegistrationError,
   signOut,
-  signIn
+  signIn,
+  signInError,
+  clearSignInError
 }

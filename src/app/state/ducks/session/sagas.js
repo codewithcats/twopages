@@ -34,8 +34,23 @@ function* signOut() {
   }
 }
 
+function* signIn(action) {
+  yield put(actions.clearRegistrationError())
+  const {email, password} = action.payload
+  try {
+    yield call(sessionApi.signIn, email, password)
+  } catch (error) {
+    yield put(actions.signInError(error))
+  }
+}
+
+function* watchSignIn() {
+  yield takeLatest(types.SIGN_IN, signIn)
+}
+
 export default [
   authStateChange,
   watchRegister,
-  signOut
+  signOut,
+  watchSignIn
 ]

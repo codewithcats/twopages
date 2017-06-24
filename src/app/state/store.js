@@ -31,7 +31,6 @@ function configStore(initialState) {
   sagaMiddleware.run(rootSaga)
 
   firebaseAuth().onAuthStateChanged(user => {
-    console.debug('onAuthStateChanged', user)
     const action = sessionActions.authStateChange(user)
     store.dispatch(action)
   })
