@@ -15,12 +15,26 @@ const TodayPanel = (props) => {
   return (
     <div>
       <TodayTitle className="title is-4">
-        <i className="fa fa-bookmark-o"></i> {todayStr}
+        <i className="fa fa-calendar-check-o"></i> {todayStr}
       </TodayTitle>
-      <ReadButton className="button is-large is-primary"
-        onClick={onReadCommit} disabled={isCommitted}>
-        I Read At Least 2 Pages Today!
-      </ReadButton>
+      {!isCommitted && (
+        <div>
+          <p>
+            You have read at least 2 pages today?
+          </p>
+          <ReadButton className="button is-large is-primary"
+            onClick={onReadCommit} disabled={isCommitted}>
+            Yes!
+          </ReadButton>
+        </div>
+      )}
+      {isCommitted && (
+        <div>
+          <p>
+            Good job! You already read at least 2 pages today.
+          </p>
+        </div>
+      )}
     </div>
   )
 }
