@@ -22,8 +22,13 @@ const registerError = (error) => ({
   }
 })
 
+const clearRegistrationError = () => ({
+  type: types.CLEAR_REGISTER_ERROR
+})
+
 export default {
   authStateChange,
   register,
-  registerError
+  registerError,
+  clearRegistrationError
 }

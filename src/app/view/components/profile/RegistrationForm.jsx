@@ -41,13 +41,13 @@ const UnlockIcon = styled.i`
 
 const RegistrationForm = (props) => {
   const {isFormValid, email, password, registerError,
-    onEmailChange, onPasswordChange, onSubmit} = props
+    onEmailChange, onPasswordChange, onSubmit, onCloseRegErrorClick} = props
   return (
     <form onSubmit={onSubmit}>
       <div className="field">
         <p className="control">
           <label className="label">Email <Asterisk /></label>
-          <input type="text" className="input"
+          <input type="email" className="input"
             value={email} onChange={onEmailChange}/>
         </p>
       </div>
@@ -73,7 +73,7 @@ const RegistrationForm = (props) => {
       </UnlockTitle>
       {registerError && (
         <div className="notification is-warning">
-          <button className="delete"></button>
+          <button className="delete" onClick={onCloseRegErrorClick}></button>
           Registration failed. Please check your email and password.
           Already registered? Please use sign in button instead ;-)
         </div>
@@ -98,6 +98,9 @@ const RegistrationForm_composed = compose(
     onSubmit: ({email, password, register}) => (event) => {
       event.preventDefault()
       register(email, password)   
+    },
+    onCloseRegErrorClick: ({clearRegistrationError}) => (event) => {
+      clearRegistrationError()
     }
   })
 )(RegistrationForm)
@@ -110,7 +113,8 @@ function stateToProps(state) {
 }
 
 const RegistrationForm_connected = connect(stateToProps, {
-  register: sessionActions.register
+  register: sessionActions.register,
+  clearRegistrationError: sessionActions.clearRegistrationError
 })(RegistrationForm_composed)
 
 export default RegistrationForm_connected
