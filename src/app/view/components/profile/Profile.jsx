@@ -12,7 +12,7 @@ const Profile = (props) => {
   const {user} = props
   return (
     <section>
-      {user? <UserDetail />: <RegistrationForm />}
+      {user? <UserDetail user={user} />: <RegistrationForm />}
     </section>
   )
 }
