@@ -12,6 +12,8 @@ const Container = styled.section`
   flex: 1;
   display: flex;
   padding: 1rem;
+  flex-direction: column;
+  align-items: stretch;
 `
 
 const Content = (props) => {

@@ -52,7 +52,7 @@ const BottomBar = (props) => {
         <Icon className="icon">
           <i className="fa fa-user-circle"></i>
         </Icon>
-        <span>User</span>
+        <span>Me</span>
       </NavItem>
     </Container>
   )
