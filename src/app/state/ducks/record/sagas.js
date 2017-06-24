@@ -1,3 +1,4 @@
+import R from 'ramda'
 import {take, takeLatest, call, put} from 'redux-saga/effects'
 import types from './types'
 import actions from './actions'
@@ -32,8 +33,13 @@ function* watchFetchRecords() {
 function* addBookToRecord() {
   while (true) {
     const {payload: {record, book, pages}} = yield take(types.ADD_BOOK_TO_RECORD)
-    const savedBook = yield call(saveBookToLocal, book)
-    console.debug('addBookToRecord:book', savedBook)
+    const savedBooks = yield call(saveBookToLocal, book)
+    const newRecord = R.merge(record, {
+      books: R.append(book.title, record.books || []),
+      pages
+    })
+    const records = yield call(saveRecordToLocal, newRecord)
+    yield put(actions.recordsChange(records))
   }
 }
 
