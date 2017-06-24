@@ -44,7 +44,7 @@ const Dashboard = (props) => {
 }
 
 const Dashboard_composed = compose(
-  withProps(({readRecords = {}}) => {
+  withProps(({readRecords}) => {
     const today = moment()
     const todayKey = today.format('YYYY-MM-DD')
     const todayRecord = readRecords[todayKey]
@@ -65,7 +65,7 @@ const Dashboard_composed = compose(
 function stateToProps(state) {
   const records = R.view(recordLens.recordsLens, state.record)
   return {
-    readRecords: records
+    readRecords: records || {}
   }
 }
 

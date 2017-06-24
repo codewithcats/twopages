@@ -3,7 +3,8 @@ import types from './types'
 import actions from './actions'
 import {
   saveRecordToLocal,
-  fetchRecordsFromLocal
+  fetchRecordsFromLocal,
+  saveBookToLocal
 } from '../../../api/record'
 
 function* saveRecord() {
@@ -28,7 +29,16 @@ function* watchFetchRecords() {
   yield takeLatest(types.FETCH_RECORDS, fetchRecords)
 }
 
+function* addBookToRecord() {
+  while (true) {
+    const {payload: {record, book, pages}} = yield take(types.ADD_BOOK_TO_RECORD)
+    const savedBook = yield call(saveBookToLocal, book)
+    console.debug('addBookToRecord:book', savedBook)
+  }
+}
+
 export default [
   saveRecord,
-  watchFetchRecords
+  watchFetchRecords,
+  addBookToRecord
 ]

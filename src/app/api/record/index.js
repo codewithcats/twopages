@@ -15,3 +15,11 @@ export async function fetchRecordsFromLocal() {
   const records = await localforage.getItem('records')
   return records
 }
+
+export async function saveBookToLocal(book) {
+  const books = (await localforage.getItem('books')) || {}
+  const newBooks = R.merge(books, {
+    [book.title]: book
+  })
+  return localforage.setItem('books', newBooks)
+}
