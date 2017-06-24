@@ -34,10 +34,20 @@ const addBookToRecord = (record, book, pages) => ({
   }
 })
 
+const addBookToRecordPending = () => ({
+  type: types.ADD_BOOK_TO_RECORD_PENDING
+})
+
+const addBookToRecordDone = () => ({
+  type: types.ADD_BOOK_TO_RECORD_DONE
+})
+
 export default {
   readCommit,
   recordsChange,
   fetchRecords,
   updateRecord,
-  addBookToRecord
+  addBookToRecord,
+  addBookToRecordPending,
+  addBookToRecordDone
 }

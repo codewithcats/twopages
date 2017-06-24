@@ -15,10 +15,22 @@ const recordsChangeReducer = (state, action) => {
   )(state)
 }
 
+const addBookToRecordPendingReducer = (state, action) => {
+  return R.set(lens.addBookToRecordPending, true, state)
+}
+
+const addBookToRecordDoneReducer = (state, action) => {
+  return R.set(lens.addBookToRecordPending, false, state)
+}
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case types.RECORDS_CHANGE:
       return recordsChangeReducer(state, action)
+    case types.ADD_BOOK_TO_RECORD_PENDING:
+      return addBookToRecordPendingReducer(state, action)
+    case types.ADD_BOOK_TO_RECORD_DONE:
+      return addBookToRecordDoneReducer(state, action)
 
     default: return state
   }

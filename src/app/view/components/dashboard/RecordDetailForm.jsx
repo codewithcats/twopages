@@ -1,17 +1,23 @@
 import React from 'react'
+import R from 'ramda'
 import {connect} from 'react-redux'
 import {
   compose,
   withState,
-  withHandlers
+  withHandlers,
+  lifecycle
 } from 'recompose'
+import classnames from 'classnames'
 
-import {actions as recordActions} from '../../../state/ducks/record'
+import {
+  actions as recordActions,
+  lens as recordLens
+} from '../../../state/ducks/record'
 
 import {Asterisk} from '../../base/form'
 
 const RecordDetailForm = (props) => {
-  const {bookTitle, pages,
+  const {bookTitle, pages, pending,
     onBookTitleChange, onPagesChange, onSubmit} = props
   return (
     <form onSubmit={onSubmit}>
@@ -33,7 +39,7 @@ const RecordDetailForm = (props) => {
       </div>
       <div className="field">
         <p className="control">
-          <button className="button is-primary"
+          <button className={classnames("button is-primary", {'is-loading': pending})}
             disabled={!bookTitle}>
             Save
           </button>
@@ -60,10 +66,24 @@ const RecordDetailForm_composed = compose(
       }
       addBook(record, book, pages)
     }
+  }),
+  lifecycle({
+    componentWillReceiveProps(next) {
+      if (this.props.pending === true && next.pending === false) {
+        this.props.setBookTitle('')
+        this.props.setPages(2)
+      }
+    }
   })
 )(RecordDetailForm)
 
-const RecordDetailForm_connected = connect(null, {
+function stateToProps(state) {
+  return {
+    pending: R.view(recordLens.addBookToRecordPending, state.record)
+  }
+}
+
+const RecordDetailForm_connected = connect(stateToProps, {
   addBook: recordActions.addBookToRecord
 })(RecordDetailForm_composed)
 
