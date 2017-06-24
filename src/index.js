@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import {Header, Content} from './app/view/components'
+import {Header, Content, BottomBar} from './app/view/components'
 import router from './app/router'
 import reduxStore from './app/state/store'
 import {Provider as ReduxProvider} from 'react-redux'
@@ -38,6 +38,12 @@ async function init() {
       <Content />
     </ReduxProvider>
   ), document.getElementById('root'))
+
+  await render((
+    <ReduxProvider store={reduxStore}>
+      <BottomBar />
+    </ReduxProvider>
+  ), document.getElementById('bottom'))
 
   registerServiceWorker();
   router.start('/dashboard')
