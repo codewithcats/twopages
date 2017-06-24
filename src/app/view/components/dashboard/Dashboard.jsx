@@ -29,10 +29,11 @@ const ProgressContainer = styled.div`
 `
 
 const Dashboard = (props) => {
-  const {todayStr, onReadCommit, isCommitted} = props
+  const {todayStr, onReadCommit, isCommitted, todayRecord} = props
   return (
     <Container>
       <TodayPanel todayStr={todayStr}
+        todayRecord={todayRecord}
         onReadCommit={onReadCommit}
         isCommitted={isCommitted} />
       <ProgressContainer>
@@ -46,10 +47,12 @@ const Dashboard_composed = compose(
   withProps(({readRecords = {}}) => {
     const today = moment()
     const todayKey = today.format('YYYY-MM-DD')
+    const todayRecord = readRecords[todayKey]
     return {
       date: today,
       todayStr: today.format('Do MMMM YYYY'),
-      isCommitted: !!readRecords[todayKey]
+      isCommitted: !!todayRecord,
+      todayRecord
     }
   }),
   withHandlers({

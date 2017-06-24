@@ -13,7 +13,7 @@ const ReadButton = styled.button`
 `
 
 const TodayPanel = (props) => {
-  const {todayStr, onReadCommit, isCommitted} = props
+  const {todayStr, onReadCommit, isCommitted, todayRecord} = props
   return (
     <div>
       <TodayTitle className="title is-4">
@@ -35,7 +35,7 @@ const TodayPanel = (props) => {
           <p>
             Good job! You already read at least 2 pages today.
           </p>
-          <RecordDetailForm />
+          <RecordDetailForm record={todayRecord} />
         </div>
       )}
     </div>
