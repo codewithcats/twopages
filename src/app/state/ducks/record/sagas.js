@@ -22,9 +22,10 @@ function* saveRecord() {
     }
     const user = yield select(state => R.view(sessionLens.userLens, state.session))
     if (user) {
-      const records = {[record.data]: record}
-      // TODO: save to remote server
-      //yield call(updateRecords, records)
+      const records = {[record.date]: record}
+      yield call(updateRecords, user, records)
+      const remoteRecords = yield call(fetchRecordsFromRemote, user)
+      yield put(actions.recordsChange(remoteRecords))
     } else {
       const records = yield call(saveRecordToLocal, record)
       yield put(actions.recordsChange(records))
