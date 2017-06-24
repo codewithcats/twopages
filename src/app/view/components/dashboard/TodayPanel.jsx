@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import RecordDetailForm from './RecordDetailForm'
+
 const TodayTitle = styled.h4`
   margin-bottom: 0.5rem !important;
 `
@@ -33,6 +35,7 @@ const TodayPanel = (props) => {
           <p>
             Good job! You already read at least 2 pages today.
           </p>
+          <RecordDetailForm />
         </div>
       )}
     </div>
