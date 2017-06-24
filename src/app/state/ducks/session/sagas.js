@@ -1,10 +1,17 @@
-import {call, all, take, takeLatest, put} from 'redux-saga/effects'
+import {call, all, take, takeLatest, put, select} from 'redux-saga/effects'
+import R from 'ramda'
 
 import types from './types'
 import actions from './actions'
+import lens from './lens'
 import {types as routingTypes} from '../routing'
 import router from '../../../router'
 import sessionApi from '../../../api/session'
+import {
+  fetchBooksFromLocal,
+  oneTimeSync,
+  fetchRecordsFromLocal
+} from '../../../api/record'
 
 function* authStateChange() {
   yield all([
@@ -39,6 +46,10 @@ function* signIn(action) {
   const {email, password} = action.payload
   try {
     yield call(sessionApi.signIn, email, password)
+    const user = yield select(state => R.view(lens.userLens, state.session))
+    const localBooks = yield call(fetchBooksFromLocal)
+    const localRecords = yield call(fetchRecordsFromLocal)
+    yield call(oneTimeSync, user, localBooks, localRecords)
   } catch (error) {
     yield put(actions.signInError(error))
   }
