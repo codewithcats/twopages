@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import styled from 'styled-components'
 import {connect} from 'react-redux'
 import {
@@ -10,7 +11,10 @@ import {
 
 import {purple} from '../../base/colors'
 import {Asterisk} from '../../base/form'
-import {actions as sessionActions} from '../../../state/ducks/session'
+import {
+  actions as sessionActions,
+  lens as sessionLens 
+} from '../../../state/ducks/session'
 
 const ActionContainer = styled.div`
   display: flex;
@@ -36,7 +40,7 @@ const UnlockIcon = styled.i`
 `
 
 const RegistrationForm = (props) => {
-  const {isFormValid, email, password,
+  const {isFormValid, email, password, registerError,
     onEmailChange, onPasswordChange, onSubmit} = props
   return (
     <form onSubmit={onSubmit}>
@@ -67,6 +71,13 @@ const RegistrationForm = (props) => {
         <UnlockIcon className="fa fa-unlock-alt"></UnlockIcon>
         To Unlock Full Features
       </UnlockTitle>
+      {registerError && (
+        <div className="notification is-warning">
+          <button className="delete"></button>
+          Registration failed. Please check your email and password.
+          Already registered? Please use sign in button instead ;-)
+        </div>
+      )}
     </form>
   )
 }
@@ -91,7 +102,14 @@ const RegistrationForm_composed = compose(
   })
 )(RegistrationForm)
 
-const RegistrationForm_connected = connect(null, {
+function stateToProps(state) {
+  const registerError = R.view(sessionLens.registerErrorLens, state.session)
+  return {
+    registerError
+  }
+}
+
+const RegistrationForm_connected = connect(stateToProps, {
   register: sessionActions.register
 })(RegistrationForm_composed)
 
