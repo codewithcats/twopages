@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import styled from 'styled-components'
 import {rgba} from 'polished'
 import {connect} from 'react-redux'
@@ -6,9 +7,13 @@ import {
   compose,
   withHandlers
 } from 'recompose'
+import classnames from 'classnames'
 
 import {purple} from '../base/colors'
-import {actions as routingActions} from '../../state/ducks/routing'
+import {
+  actions as routingActions,
+  lens as routingLens
+} from '../../state/ducks/routing'
 
 const Container = styled.nav`
   position: fixed;
@@ -33,23 +38,25 @@ const Icon = styled.span`
 `
 
 const BottomBar = (props) => {
-  const {profile, dashboard} = props
+  const {profile, dashboard, currentState} = props
   return (
     <Container className="nav">
-      <NavItem className="nav-item"
+      <NavItem className={classnames('nav-item', {'is-active': currentState === 'dashboard'})}
         onClick={dashboard}>
         <Icon className="icon">
           <i className="fa fa-home"></i>
         </Icon>
         <span>Home</span>
       </NavItem>
-      <NavItem className="nav-item">
+
+      <NavItem className={classnames('nav-item', {'is-active': currentState === 'library'})}>
         <Icon className="icon">
           <i className="fa fa-book"></i>
         </Icon>
         <span>Library</span>
       </NavItem>
-      <NavItem className="nav-item"
+
+      <NavItem className={classnames('nav-item', {'is-active': currentState === 'profile'})}
         onClick={profile}>
         <Icon className="icon">
           <i className="fa fa-user-circle"></i>
@@ -71,7 +78,14 @@ const BottomBar_composed = compose(
   })
 )(BottomBar)
 
-const BottomBar_connected = connect(null, {
+function stateToProps(state) {
+  const currentState = R.view(routingLens.currentStateNameLens, state.routing)
+  return {
+    currentState
+  }
+}
+
+const BottomBar_connected = connect(stateToProps, {
   navigate: routingActions.navigate
 })(BottomBar_composed)
 
