@@ -7,6 +7,7 @@ import {lens as routingLens} from '../../state/ducks/routing'
 
 import Profile from './profile'
 import Dashboard from './dashboard'
+import BottomBar from './BottomBar'
 
 const Container = styled.section`
   flex: 1;
@@ -21,6 +22,7 @@ const Content = (props) => {
   return (
     <Container>
       {view}
+      <BottomBar />
     </Container>
   )
 }

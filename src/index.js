@@ -9,7 +9,7 @@ import router from './app/router'
 import reduxStore from './app/state/store'
 import {actions as routingActions} from './app/state/ducks/routing'
 
-import {Header, Content, BottomBar} from './app/view/components'
+import {Header, Content} from './app/view/components'
 
 if (process.env.NODE_ENV !== 'production') {
   let createClass = React.createClass

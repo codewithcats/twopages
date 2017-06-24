@@ -16,6 +16,7 @@ const Container = styled.nav`
   width: 100%;
   border-color: ${rgba(purple['500'], 0.14)};
   box-shadow: 0 -2px 4px 1px ${rgba(purple['500'], 0.06)};
+  margin-left: -1rem;
 `
 const NavItem = styled.a`
   flex: 1;
