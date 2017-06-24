@@ -35,8 +35,7 @@ function* addBookToRecord() {
     const {payload: {record, book, pages}} = yield take(types.ADD_BOOK_TO_RECORD)
     const savedBooks = yield call(saveBookToLocal, book)
     const newRecord = R.merge(record, {
-      books: R.append(book.title, record.books || []),
-      pages
+      books: R.append({title: book.title, pages}, record.books || [])
     })
     const records = yield call(saveRecordToLocal, newRecord)
     yield put(actions.recordsChange(records))

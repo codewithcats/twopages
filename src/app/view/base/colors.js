@@ -6,4 +6,5 @@ export const purple = {
 export const green = {
   '300': '#81C784',
   '500': '#4CAF50',
+  'A400': '#00E676',
 }
