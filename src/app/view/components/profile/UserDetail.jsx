@@ -1,11 +1,21 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-const UserDetail = () => {
+import {actions as sessionActions} from '../../../state/ducks/session'
+
+const UserDetail = (props) => {
+  const {signOut} = props
   return (
     <div>
-      User Detail
+      <button className="button" onClick={signOut}>
+        Sign Out
+      </button>
     </div>
   )
 }
 
-export default UserDetail
+const UserDetail_connected = connect(null, {
+  signOut: sessionActions.signOut
+})(UserDetail)
+
+export default UserDetail_connected

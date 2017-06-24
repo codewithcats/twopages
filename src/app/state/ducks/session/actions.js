@@ -26,9 +26,14 @@ const clearRegistrationError = () => ({
   type: types.CLEAR_REGISTER_ERROR
 })
 
+const signOut = () => ({
+  type: types.SIGN_OUT
+})
+
 export default {
   authStateChange,
   register,
   registerError,
-  clearRegistrationError
+  clearRegistrationError,
+  signOut
 }

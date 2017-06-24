@@ -27,7 +27,15 @@ function* watchRegister() {
   yield takeLatest(types.REGISTER, register)
 }
 
+function* signOut() {
+  while (true) {
+    yield take(types.SIGN_OUT)
+    yield call(sessionApi.signOut)
+  }
+}
+
 export default [
   authStateChange,
-  watchRegister
+  watchRegister,
+  signOut
 ]
