@@ -7,6 +7,14 @@ const authStateChange = (user) => ({
   }
 })
 
+const register = (email, password) => ({
+  type: types.REGISTER,
+  payload: {
+    email, password
+  }
+})
+
 export default {
-  authStateChange
+  authStateChange,
+  register
 }
