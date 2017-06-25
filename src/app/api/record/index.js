@@ -67,3 +67,10 @@ export async function removeBookFromLocalRecord(record, book) {
   record.books = newBooks
   return saveRecordToLocal(record)
 }
+
+export async function removeBookFromRecord(user, record, book) {
+  const newBooks = R.filter(rb => rb.title !== book.title, record.books || [])
+  record.books = newBooks
+  const records = {[record.date]: record}
+  return updateRecords(user, records)
+}

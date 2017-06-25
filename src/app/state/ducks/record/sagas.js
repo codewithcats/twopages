@@ -9,7 +9,8 @@ import {
   fetchRecords as fetchRecordsFromRemote,
   updateRecords,
   updateBooks,
-  removeBookFromLocalRecord
+  removeBookFromLocalRecord,
+  removeBookFromRecord as removeBookFromRemoteRecord
 } from '../../../api/record'
 import {lens as sessionLens} from '../session'
 import router from '../../../router'
@@ -94,7 +95,9 @@ function* removeBookFromRecord() {
     const {payload: {record, book}} = yield take(types.REMOVE_BOOK_FROM_RECORD)
     const user = yield select(state => R.view(sessionLens.userLens, state.session))
     if (user) {
-
+      yield call(removeBookFromRemoteRecord, user, record, book)
+      const remoteRecords = yield call(fetchRecordsFromRemote, user)
+      yield put(actions.recordsChange(remoteRecords))
     } else {
       const records = yield call(removeBookFromLocalRecord, record, book)
       yield put(actions.recordsChange(records))
