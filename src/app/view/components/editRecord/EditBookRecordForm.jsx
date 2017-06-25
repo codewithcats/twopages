@@ -31,13 +31,18 @@ const ActionContainer = styled.div`
   justify-content: flex-end;
 `
 
+const CloseFormContainer = styled.div`
+  flex: 1;
+  text-align: left;
+`
+
 const Button = styled.button`
   margin-left: 0.25rem;
 `
 
 const EditBookRecordForm = (props) => {
   const {book, editing, title, pages,
-    onTitleClick, onTitleChange, onPagesChange, onRemoveBookClick, onSubmit} = props
+    onTitleClick, onTitleChange, onPagesChange, onRemoveBookClick, onSubmit, onCloseClick} = props
   return (
     <div className="panel-block">
       <RecordTitleContainer>
@@ -64,6 +69,9 @@ const EditBookRecordForm = (props) => {
               </p>
             </div>
             <ActionContainer className="field">
+              <CloseFormContainer>
+                <button className="button" onClick={onCloseClick}>close</button>
+              </CloseFormContainer>
               <Button className="button is-primary">Update</Button>
               <Button className="button is-danger" onClick={onRemoveBookClick}>
                 Remove
@@ -98,6 +106,10 @@ const EditBookRecordForm_composed = compose(
       event.preventDefault()
       const updatedBook = {title, pages}
       updateBook(record, book, updatedBook)
+    },
+    onCloseClick: ({setEditing}) => event => {
+      event.preventDefault()
+      setEditing(false)
     }
   })
 )(EditBookRecordForm)
