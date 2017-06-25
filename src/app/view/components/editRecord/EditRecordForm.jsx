@@ -12,6 +12,7 @@ import {actions as recordActions, lens as recordLens} from '../../../state/ducks
 import {lens as routingLens} from '../../../state/ducks/routing'
 
 import EditBookRecordForm from './EditBookRecordForm'
+import {RecordDetailForm} from '../record'
 
 const Container = styled.div`
   padding-bottom: 5rem;
@@ -32,6 +33,10 @@ const EditRecordForm = (props) => {
             removeBook={removeBook} updateBook={updateBook}/>
         ))}
       </section>
+      <div>
+        <h5>Add More Book You Have Read</h5>
+        <RecordDetailForm record={record} />
+      </div>
     </Container>
   )
 }
