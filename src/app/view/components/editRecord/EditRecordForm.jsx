@@ -6,17 +6,22 @@ import {
   withProps
 } from 'recompose'
 import moment from 'moment'
+import styled from 'styled-components'
 
 import {actions as recordActions, lens as recordLens} from '../../../state/ducks/record'
 import {lens as routingLens} from '../../../state/ducks/routing'
 
 import EditBookRecordForm from './EditBookRecordForm'
 
+const Container = styled.div`
+  padding-bottom: 5rem;
+`
+
 const EditRecordForm = (props) => {
   const {record, dateStr, books, removeBook, updateBook} = props
   console.debug('EditRecordForm.render', record)
   return (
-    <div>
+    <Container>
       <h5>Edit Reading Record</h5>
       <h4 className="title is-4">
         <i className="fa fa-calendar-check-o"></i> {dateStr}
@@ -27,7 +32,7 @@ const EditRecordForm = (props) => {
             removeBook={removeBook} updateBook={updateBook}/>
         ))}
       </section>
-    </div>
+    </Container>
   )
 }
 

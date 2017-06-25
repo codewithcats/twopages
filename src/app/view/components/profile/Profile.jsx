@@ -1,19 +1,23 @@
 import React from 'react'
 import R from 'ramda'
 import {connect} from 'react-redux'
+import styled from 'styled-components'
 
 import {lens as sessionLens} from '../../../state/ducks/session'
 
 import RegistrationForm from './RegistrationForm'
 import UserDetail from './UserDetail'
 
+const Container = styled.section`
+  padding-bottom: 5rem;
+`
 
 const Profile = (props) => {
   const {user} = props
   return (
-    <section>
+    <Container>
       {user? <UserDetail user={user} />: <RegistrationForm />}
-    </section>
+    </Container>
   )
 }
 
