@@ -37,7 +37,7 @@ const Button = styled.button`
 
 const EditBookRecordForm = (props) => {
   const {book, editing, title, pages,
-    onTitleClick, onTitleChange, onPagesChange, onRemoveBookClick} = props
+    onTitleClick, onTitleChange, onPagesChange, onRemoveBookClick, onSubmit} = props
   return (
     <div className="panel-block">
       <RecordTitleContainer>
@@ -48,7 +48,7 @@ const EditBookRecordForm = (props) => {
           <span>{book.pages}</span>
         </RecordTitle>
         {editing && (
-          <FormContainer>
+          <FormContainer onSubmit={onSubmit}>
             <div className="field">
               <p className="control">
                 <label className="label">Book Title <Asterisk /></label>
@@ -93,6 +93,11 @@ const EditBookRecordForm_composed = compose(
     onRemoveBookClick: ({removeBook, record, book}) => event => {
       event.preventDefault()
       removeBook(record, book)
+    },
+    onSubmit: ({updateBook, record, book, title, pages}) => event => {
+      event.preventDefault()
+      const updatedBook = {title, pages}
+      updateBook(record, book, updatedBook)
     }
   })
 )(EditBookRecordForm)

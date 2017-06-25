@@ -13,7 +13,7 @@ import {lens as routingLens} from '../../../state/ducks/routing'
 import EditBookRecordForm from './EditBookRecordForm'
 
 const EditRecordForm = (props) => {
-  const {record, dateStr, books, removeBook} = props
+  const {record, dateStr, books, removeBook, updateBook} = props
   console.debug('EditRecordForm.render', record)
   return (
     <div>
@@ -24,7 +24,7 @@ const EditRecordForm = (props) => {
       <section className="panel">
         {books.map(book => (
           <EditBookRecordForm book={book} key={book.title} record={record}
-            removeBook={removeBook}/>
+            removeBook={removeBook} updateBook={updateBook}/>
         ))}
       </section>
     </div>
@@ -50,7 +50,8 @@ function stateToProps(state) {
 }
 
 const EditBookRecordForm_connected = connect(stateToProps, {
-  removeBook: recordActions.removeBookFromRecord
+  removeBook: recordActions.removeBookFromRecord,
+  updateBook: recordActions.editBookInRecord
 })(EditRecordForm_composed)
 
 export default EditBookRecordForm_connected

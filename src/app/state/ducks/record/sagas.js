@@ -10,7 +10,8 @@ import {
   updateRecords,
   updateBooks,
   removeBookFromLocalRecord,
-  removeBookFromRecord as removeBookFromRemoteRecord
+  removeBookFromRecord as removeBookFromRemoteRecord,
+  editBookInLocalRecord
 } from '../../../api/record'
 import {lens as sessionLens} from '../session'
 import router from '../../../router'
@@ -90,6 +91,19 @@ function* toEditRecord() {
   }
 }
 
+function* editBookInRecord() {
+  while (true) {
+    const {payload: {record, originalBook, book}} = yield take(types.EDIT_BOOK_IN_RECORD)
+    const user = yield select(state => R.view(sessionLens.userLens, state.session))
+    if (user) {
+
+    } else {
+      const records = yield call(editBookInLocalRecord, record, originalBook, book)
+      yield put(actions.recordsChange(records))
+    }
+  }
+}
+
 function* removeBookFromRecord() {
   while (true) {
     const {payload: {record, book}} = yield take(types.REMOVE_BOOK_FROM_RECORD)
@@ -110,5 +124,6 @@ export default [
   watchFetchRecords,
   addBookToRecord,
   toEditRecord,
-  removeBookFromRecord
+  removeBookFromRecord,
+  editBookInRecord
 ]

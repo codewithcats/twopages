@@ -74,3 +74,9 @@ export async function removeBookFromRecord(user, record, book) {
   const records = {[record.date]: record}
   return updateRecords(user, records)
 }
+
+export async function editBookInLocalRecord(record, originalBook, book) {
+  const newBooks = record.books.map(b => (b.title === originalBook.title)? book: b)
+  record.books = newBooks
+  return saveRecordToLocal(record)
+}
