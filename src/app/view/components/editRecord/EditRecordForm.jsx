@@ -1,14 +1,17 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {
   compose,
   withProps
 } from 'recompose'
 import moment from 'moment'
 
+import {actions as recordActions} from '../../../state/ducks/record'
+
 import EditBookRecordForm from './EditBookRecordForm'
 
 const EditRecordForm = (props) => {
-  const {record, dateStr, books} = props
+  const {record, dateStr, books, removeBook} = props
   return (
     <div>
       <h5>Edit Reading Record</h5>
@@ -17,7 +20,8 @@ const EditRecordForm = (props) => {
       </h4>
       <section className="panel">
         {books.map(book => (
-          <EditBookRecordForm book={book} key={book.title}/>
+          <EditBookRecordForm book={book} key={book.title}
+            removeBook={removeBook}/>
         ))}
       </section>
     </div>
@@ -33,4 +37,8 @@ const EditRecordForm_composed = compose(
   })
 )(EditRecordForm)
 
-export default EditRecordForm_composed
+const EditBookRecordForm_connected = connect(null, {
+  removeBook: recordActions.removeBookFromRecord
+})(EditRecordForm_composed)
+
+export default EditBookRecordForm_connected

@@ -49,6 +49,13 @@ const toEditRecord = (record) => ({
   }
 })
 
+const removeBookFromRecord = (record, book) => ({
+  type: types.REMOVE_BOOK_FROM_RECORD,
+  payload: {
+    record, book
+  }
+})
+
 export default {
   readCommit,
   recordsChange,
@@ -57,5 +64,6 @@ export default {
   addBookToRecord,
   addBookToRecordPending,
   addBookToRecordDone,
-  toEditRecord
+  toEditRecord,
+  removeBookFromRecord
 }

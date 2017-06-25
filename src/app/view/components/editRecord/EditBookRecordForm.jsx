@@ -37,7 +37,7 @@ const Button = styled.button`
 
 const EditBookRecordForm = (props) => {
   const {book, editing, title, pages,
-    onTitleClick, onTitleChange, onPagesChange} = props
+    onTitleClick, onTitleChange, onPagesChange, onRemoveBookClick} = props
   return (
     <div className="panel-block">
       <RecordTitleContainer>
@@ -65,7 +65,9 @@ const EditBookRecordForm = (props) => {
             </div>
             <ActionContainer className="field">
               <Button className="button is-primary">Update</Button>
-              <Button className="button is-danger">Remove</Button>
+              <Button className="button is-danger" onClick={onRemoveBookClick}>
+                Remove
+              </Button>
             </ActionContainer>
           </FormContainer>
         )}
@@ -87,6 +89,10 @@ const EditBookRecordForm_composed = compose(
     },
     onPagesChange: ({setPages}) => event => {
       setPages(event.target.value)
+    },
+    onRemoveBookClick: ({removeBook, record, book}) => event => {
+      event.preventDefault()
+      removeBook(record, book)
     }
   })
 )(EditBookRecordForm)
