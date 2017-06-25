@@ -8,6 +8,7 @@ import {lens as routingLens} from '../../state/ducks/routing'
 import Profile from './profile'
 import Dashboard from './dashboard'
 import EditRecordForm from './editRecord'
+import History from './history'
 import BottomBar from './BottomBar'
 
 const Container = styled.section`
@@ -37,6 +38,8 @@ function stateToProps(state) {
       return {state: stateName, view: <Profile />}
     case 'record.edit':
       return {state: stateName, view: <EditRecordForm />}
+    case 'history':
+      return {state: stateName, view: <History />}
     default:
       return {state: stateName}
   }

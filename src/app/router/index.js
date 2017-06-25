@@ -12,7 +12,8 @@ const routes = [
   createRoute('lounge', '/lounge'),
   createRoute('record', '/record/:record', [
     createRoute('edit', '/edit')
-  ])
+  ]),
+  createRoute('history', '/history')
 ]
 
 const options = {

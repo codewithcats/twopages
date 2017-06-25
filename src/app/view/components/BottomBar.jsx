@@ -38,7 +38,7 @@ const Icon = styled.span`
 `
 
 const BottomBar = (props) => {
-  const {profile, dashboard, currentState} = props
+  const {profile, dashboard, currentState, history} = props
   return (
     <Container className="nav">
       <NavItem className={classnames('nav-item', {'is-active': currentState === 'dashboard'})}
@@ -49,11 +49,12 @@ const BottomBar = (props) => {
         <span>Home</span>
       </NavItem>
 
-      <NavItem className={classnames('nav-item', {'is-active': currentState === 'library'})}>
+      <NavItem className={classnames('nav-item', {'is-active': currentState === 'history'})}
+        onClick={history}>
         <Icon className="icon">
-          <i className="fa fa-book"></i>
+          <i className="fa fa-history"></i>
         </Icon>
-        <span>Library</span>
+        <span>History</span>
       </NavItem>
 
       <NavItem className={classnames('nav-item', {'is-active': currentState === 'profile'})}
@@ -74,6 +75,9 @@ const BottomBar_composed = compose(
     },
     dashboard: ({navigate}) => () => {
       navigate('dashboard')
+    },
+    history: ({navigate}) => () => {
+      navigate('history')
     },
   })
 )(BottomBar)
