@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import styled from 'styled-components'
 
 import {lens as routingLens} from '../../state/ducks/routing'
-import {lens as recordLens} from '../../state/ducks/record'
 
 import Profile from './profile'
 import Dashboard from './dashboard'

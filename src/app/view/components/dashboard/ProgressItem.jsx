@@ -2,8 +2,7 @@ import React from 'react'
 import {
   compose,
   withProps,
-  withHandlers,
-  shouldUpdate
+  withHandlers
 } from 'recompose'
 import moment from 'moment'
 import styled from 'styled-components'
@@ -51,12 +50,6 @@ const ProgressItem = (props) => {
   )
 }
 const ProgressItem_composed = compose(
-  // shouldUpdate((current, next) => {
-  //   const currentRecord = current.record
-  //   const nextRecord = next.record
-  //   return currentRecord.date !== nextRecord.date ||
-  //     currentRecord.read !== nextRecord.read
-  // }),
   withProps(({record}) => {
     return {
       dateText: moment(record.date, 'YYYY-MM-DD').format('Do MMMM YYYY'),

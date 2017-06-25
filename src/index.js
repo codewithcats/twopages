@@ -11,17 +11,6 @@ import {actions as routingActions} from './app/state/ducks/routing'
 
 import {Header, Content} from './app/view/components'
 
-if (process.env.NODE_ENV !== 'production') {
-  let createClass = React.createClass
-  Object.defineProperty(React, 'createClass', {
-    set: (nextCreateClass) => {
-      createClass = nextCreateClass
-    }
-  })
-  const {whyDidYouUpdate} = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
-
 async function render(component, element) {
   return new Promise((resolve) => {
     ReactDOM.render(component, element, (...args) => {
