@@ -1,4 +1,5 @@
 import React from 'react'
+import R from 'ramda'
 import {connect} from 'react-redux'
 import {
   compose,
@@ -6,12 +7,14 @@ import {
 } from 'recompose'
 import moment from 'moment'
 
-import {actions as recordActions} from '../../../state/ducks/record'
+import {actions as recordActions, lens as recordLens} from '../../../state/ducks/record'
+import {lens as routingLens} from '../../../state/ducks/routing'
 
 import EditBookRecordForm from './EditBookRecordForm'
 
 const EditRecordForm = (props) => {
   const {record, dateStr, books, removeBook} = props
+  console.debug('EditRecordForm.render', record)
   return (
     <div>
       <h5>Edit Reading Record</h5>
@@ -32,12 +35,21 @@ const EditRecordForm_composed = compose(
   withProps(({record}) => {
     return {
       dateStr: moment(record.date, 'YYYY-MM-DD').format('Do MMMM YYYY'),
-      books: record.books || []
     }
   })
 )(EditRecordForm)
 
-const EditBookRecordForm_connected = connect(null, {
+function stateToProps(state) {
+  const {params: {record: recordDate}} = R.view(routingLens.currentStateLens, state.routing)
+  const records = R.view(recordLens.recordsLens, state.record)
+  const targetRecord = records[recordDate]
+  return {
+    record: targetRecord,
+    books: targetRecord.books || []
+  }
+}
+
+const EditBookRecordForm_connected = connect(stateToProps, {
   removeBook: recordActions.removeBookFromRecord
 })(EditRecordForm_composed)
 

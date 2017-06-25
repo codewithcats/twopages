@@ -37,10 +37,7 @@ function stateToProps(state) {
     case 'profile':
       return {state: stateName, view: <Profile />}
     case 'record.edit':
-      const {params: {record: recordDate}} = R.view(routingLens.currentStateLens, state.routing)
-      const records = R.view(recordLens.recordsLens, state.record)
-      const targetRecord = records[recordDate]
-      return {state: stateName, view: <EditRecordForm record={targetRecord} />}
+      return {state: stateName, view: <EditRecordForm />}
     default:
       return {state: stateName}
   }

@@ -92,7 +92,6 @@ function* toEditRecord() {
 function* removeBookFromRecord() {
   while (true) {
     const {payload: {record, book}} = yield take(types.REMOVE_BOOK_FROM_RECORD)
-    console.debug('removeBookFromLocalRecord', record, book)
     const user = yield select(state => R.view(sessionLens.userLens, state.session))
     if (user) {
 
