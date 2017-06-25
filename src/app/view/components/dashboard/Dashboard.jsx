@@ -45,6 +45,7 @@ const Dashboard = (props) => {
               Today Reading
             </h5>
           )}
+          <section>
           {books.map(book => (
             <EditBookRecordForm record={todayRecord}
               key={book.title}
@@ -52,6 +53,7 @@ const Dashboard = (props) => {
               removeBook={removeBook}
               updateBook={updateBook} />
           ))}
+          </section>
         </ReadingListContainer>
       </Container>
     </PageContainer>

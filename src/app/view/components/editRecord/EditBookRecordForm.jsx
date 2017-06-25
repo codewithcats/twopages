@@ -19,7 +19,12 @@ const RecordTitle = styled.div`
 `
 
 const BookTitle = styled.div`
+  display: flex;
   flex: 1;
+`
+
+const BookIcon = styled.i`
+  margin-right: 0.5rem;
 `
 
 const FormContainer = styled.form`
@@ -48,9 +53,10 @@ const EditBookRecordForm = (props) => {
       <RecordTitleContainer>
         <RecordTitle onClick={onTitleClick}>
           <BookTitle>
+            <BookIcon className="fa fa-book"></BookIcon>
             {book.title}
           </BookTitle>
-          <span>{book.pages}</span>
+          <span className="tag is-primary">{book.pages}</span>
         </RecordTitle>
         {editing && (
           <FormContainer onSubmit={onSubmit}>
