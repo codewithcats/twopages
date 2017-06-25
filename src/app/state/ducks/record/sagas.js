@@ -8,7 +8,8 @@ import {
   saveBookToLocal,
   fetchRecords as fetchRecordsFromRemote,
   updateRecords,
-  updateBooks
+  updateBooks,
+  removeBookFromLocalRecord
 } from '../../../api/record'
 import {lens as sessionLens} from '../session'
 import router from '../../../router'
@@ -88,9 +89,24 @@ function* toEditRecord() {
   }
 }
 
+function* removeBookFromRecord() {
+  while (true) {
+    const {payload: {record, book}} = yield take(types.REMOVE_BOOK_FROM_RECORD)
+    console.debug('removeBookFromLocalRecord', record, book)
+    const user = yield select(state => R.view(sessionLens.userLens, state.session))
+    if (user) {
+
+    } else {
+      const records = yield call(removeBookFromLocalRecord, record, book)
+      yield put(actions.recordsChange(records))
+    }
+  }
+}
+
 export default [
   saveRecord,
   watchFetchRecords,
   addBookToRecord,
-  toEditRecord
+  toEditRecord,
+  removeBookFromRecord
 ]

@@ -61,3 +61,9 @@ export async function fetchRecords(user) {
     return snapshot.val()
   })
 }
+
+export async function removeBookFromLocalRecord(record, book) {
+  const newBooks = R.filter(rb => rb.title !== book.title, record.books || [])
+  record.books = newBooks
+  return saveRecordToLocal(record)
+}

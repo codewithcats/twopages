@@ -20,7 +20,7 @@ const EditRecordForm = (props) => {
       </h4>
       <section className="panel">
         {books.map(book => (
-          <EditBookRecordForm book={book} key={book.title}
+          <EditBookRecordForm book={book} key={book.title} record={record}
             removeBook={removeBook}/>
         ))}
       </section>
