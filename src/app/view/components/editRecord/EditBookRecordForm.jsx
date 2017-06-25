@@ -36,8 +36,8 @@ const Button = styled.button`
 `
 
 const EditBookRecordForm = (props) => {
-  const {book, editing,
-    onTitleClick} = props
+  const {book, editing, title, pages,
+    onTitleClick, onTitleChange, onPagesChange} = props
   return (
     <div className="panel-block">
       <RecordTitleContainer>
@@ -52,13 +52,15 @@ const EditBookRecordForm = (props) => {
             <div className="field">
               <p className="control">
                 <label className="label">Book Title <Asterisk /></label>
-                <input type="text" className="input"/>
+                <input type="text" className="input"
+                  value={title} onChange={onTitleChange}/>
               </p>
             </div>
             <div className="field">
               <p className="control">
                 <label className="label">Pages</label>
-                <input type="number" className="input"/>
+                <input type="number" className="input"
+                  value={pages} onChange={onPagesChange}/>
               </p>
             </div>
             <ActionContainer className="field">
@@ -74,9 +76,17 @@ const EditBookRecordForm = (props) => {
 
 const EditBookRecordForm_composed = compose(
   withState('editing', 'setEditing', false),
+  withState('title', 'setTitle', ({book}) => book.title),
+  withState('pages', 'setPages', ({book}) => book.pages),
   withHandlers({
     onTitleClick: ({setEditing, editing}) => event => {
       setEditing(!editing)
+    },
+    onTitleChange: ({setTitle}) => event => {
+      setTitle(event.target.value)
+    },
+    onPagesChange: ({setPages}) => event => {
+      setPages(event.target.value)
     }
   })
 )(EditBookRecordForm)
