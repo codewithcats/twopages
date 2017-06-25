@@ -14,7 +14,6 @@ import {
   lens as recordLens
 } from '../../../state/ducks/record'
 
-import Progress from './Progress'
 import TodayPanel from './TodayPanel'
 
 const Container = styled.div`
@@ -38,7 +37,6 @@ const Dashboard = (props) => {
         onReadCommit={onReadCommit}
         isCommitted={isCommitted} />
       <ProgressContainer>
-        <Progress />
       </ProgressContainer>
     </Container>
   )

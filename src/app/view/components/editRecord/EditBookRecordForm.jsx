@@ -70,7 +70,7 @@ const EditBookRecordForm = (props) => {
             </div>
             <ActionContainer className="field">
               <CloseFormContainer>
-                <button className="button" onClick={onCloseClick}>close</button>
+                <a className="button" onClick={onCloseClick}>close</a>
               </CloseFormContainer>
               <Button className="button is-primary">Update</Button>
               <Button className="button is-danger" onClick={onRemoveBookClick}>
