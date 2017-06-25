@@ -28,7 +28,7 @@ const Progress = (props) => {
   return (
     <section>
       <ProgressTitle className="title is-5">
-        My Progress
+        My Reading History
       </ProgressTitle>
       <ProgressInfoText>Tap to edit</ProgressInfoText>
       {readRecords.map(record => (

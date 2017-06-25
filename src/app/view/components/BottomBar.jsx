@@ -46,7 +46,7 @@ const BottomBar = (props) => {
         <Icon className="icon">
           <i className="fa fa-home"></i>
         </Icon>
-        <span>Home</span>
+        <span>Today</span>
       </NavItem>
 
       <NavItem className={classnames('nav-item', {'is-active': currentState === 'history'})}

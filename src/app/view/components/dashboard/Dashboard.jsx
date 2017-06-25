@@ -15,30 +15,46 @@ import {
 } from '../../../state/ducks/record'
 
 import TodayPanel from './TodayPanel'
+import {PageContainer} from '../../base/container'
+import {EditBookRecordForm} from '../editRecord'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: stretch;
-  padding-bottom: 5rem;
 `
 
-const ProgressContainer = styled.div`
+const ReadingListContainer = styled.div`
   margin-top: 2rem
 `
 
 const Dashboard = (props) => {
-  const {todayStr, onReadCommit, isCommitted, todayRecord} = props
+  const {todayStr, onReadCommit, isCommitted, todayRecord, books,
+    removeBook, updateBook} = props
   return (
-    <Container>
-      <TodayPanel todayStr={todayStr}
-        todayRecord={todayRecord}
-        onReadCommit={onReadCommit}
-        isCommitted={isCommitted} />
-      <ProgressContainer>
-      </ProgressContainer>
-    </Container>
+    <PageContainer>
+      <Container>
+        <TodayPanel todayStr={todayStr}
+          todayRecord={todayRecord}
+          onReadCommit={onReadCommit}
+          isCommitted={isCommitted} />
+        <ReadingListContainer>
+          {!!books.length && (
+            <h5 className="title is-5">
+              Today Reading
+            </h5>
+          )}
+          {books.map(book => (
+            <EditBookRecordForm record={todayRecord}
+              key={book.title}
+              book={book} 
+              removeBook={removeBook}
+              updateBook={updateBook} />
+          ))}
+        </ReadingListContainer>
+      </Container>
+    </PageContainer>
   )
 }
 
@@ -47,11 +63,13 @@ const Dashboard_composed = compose(
     const today = moment()
     const todayKey = today.format('YYYY-MM-DD')
     const todayRecord = readRecords[todayKey]
+    const books = R.pathOr([], ['books'], todayRecord)
     return {
       date: today,
       todayStr: today.format('Do MMMM YYYY'),
       isCommitted: !!todayRecord,
-      todayRecord
+      todayRecord,
+      books
     }
   }),
   withHandlers({
@@ -69,7 +87,9 @@ function stateToProps(state) {
 }
 
 const Dashboard_connected = connect(stateToProps, {
-  readCommit: recordActions.readCommit
+  readCommit: recordActions.readCommit,
+  updateBook: recordActions.editBookInRecord,
+  removeBook: recordActions.removeBookFromRecord
 })(Dashboard_composed)
 
 export default Dashboard_connected
