@@ -80,3 +80,10 @@ export async function editBookInLocalRecord(record, originalBook, book) {
   record.books = newBooks
   return saveRecordToLocal(record)
 }
+
+export async function editBookInRecord(user, record, originalBook, book) {
+  const newBooks = record.books.map(b => (b.title === originalBook.title)? book: b)
+  record.books = newBooks
+  const records = {[record.date]: record}
+  return updateRecords(user, records)
+}

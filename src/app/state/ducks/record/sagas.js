@@ -11,7 +11,8 @@ import {
   updateBooks,
   removeBookFromLocalRecord,
   removeBookFromRecord as removeBookFromRemoteRecord,
-  editBookInLocalRecord
+  editBookInLocalRecord,
+  editBookInRecord as editBookInRemoteRecord
 } from '../../../api/record'
 import {lens as sessionLens} from '../session'
 import router from '../../../router'
@@ -96,7 +97,9 @@ function* editBookInRecord() {
     const {payload: {record, originalBook, book}} = yield take(types.EDIT_BOOK_IN_RECORD)
     const user = yield select(state => R.view(sessionLens.userLens, state.session))
     if (user) {
-
+      yield call(editBookInRemoteRecord, user, record, originalBook, book)
+      const remoteRecords = yield call(fetchRecordsFromRemote, user)
+      yield put(actions.recordsChange(remoteRecords))
     } else {
       const records = yield call(editBookInLocalRecord, record, originalBook, book)
       yield put(actions.recordsChange(records))
